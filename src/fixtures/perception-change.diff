@@ -1,0 +1,8 @@
+diff --git a/src/components/SaveButton.tsx b/src/components/SaveButton.tsx
+index 0000000..1111111 100644
+--- a/src/components/SaveButton.tsx
++++ b/src/components/SaveButton.tsx
+@@ -1,3 +1,4 @@
+ export function SaveButton() {
++  return <button>Save</button>;
+ }
