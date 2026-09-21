@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist && tsc && cp -r src/fixtures dist/fixtures",
+    "build": "rm -rf dist && tsc",
     "dev": "tsc --watch",
     "start": "node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run build && node --test dist/perception/perception.test.js && npm --prefix src/fixtures/perception test"
   },
   "keywords": [],
   "author": "",
