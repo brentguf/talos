@@ -6,7 +6,7 @@ import { resolve } from 'node:path';
 import { perceive } from './index.js';
 import { reviewDiff } from '../review.js';
 
-const fixtureRoot = resolve(process.cwd(), 'src/fixtures/perception');
+const fixtureRoot = resolve(process.cwd(), 'fixtures/perception');
 const changedFile = 'src/components/SaveButton.tsx';
 
 test('perception discovers and prioritizes related accessibility context', async () => {
@@ -54,7 +54,7 @@ test('perception tolerates files deleted by the current change', async () => {
 });
 
 test('a unified diff flows through perception into the reviewer context', async () => {
-  const diffPath = resolve(process.cwd(), 'src/fixtures/perception-change.diff');
+  const diffPath = resolve(process.cwd(), 'fixtures/perception-change.diff');
   const diff = await readFile(diffPath, 'utf8');
   let receivedContext = '';
 
