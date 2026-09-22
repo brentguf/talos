@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 import { axe } from 'vitest-axe';
+import 'vitest-axe/extend-expect';
 import { expect, it } from 'vitest';
 
 import { SaveButton } from './SaveButton';
