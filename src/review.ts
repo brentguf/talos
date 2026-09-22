@@ -1,4 +1,4 @@
-import { analyzeAccessibility, type AccessibilityReport } from './core.js';
+import { analyzeAccessibility, type AccessibilityReport } from './analysis.js';
 import { perceive } from './perception/index.js';
 import type { ContextFile, PerceptionTrace } from './perception/context.js';
 
