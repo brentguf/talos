@@ -26,9 +26,12 @@ const IGNORED_DIRECTORIES = new Set([
   'coverage',
 ]);
 
-const A11Y_EVIDENCE = /\b(axe|a11y|accessibility|focus|tab|accessibleName|accessibility-tree)\b/i;
-const TEST_OR_CONFIG = /(?:\.(test|spec)\.[^.]+$|\.snap$|__tests__|__snapshots__|(?:^|\/)(?:eslint|vitest|jest|playwright|cypress)(?:\.|$))/i;
-const CONFIG_FILE = /(?:^|\/)(?:eslint|vitest|jest|playwright|cypress)(?:\.config)?\.[^.]+$/i;
+const A11Y_EVIDENCE =
+  /\b(axe|a11y|accessibility|focus|tab|accessibleName|accessibility-tree)\b/i;
+const TEST_OR_CONFIG =
+  /(?:\.(test|spec)\.[^.]+$|\.snap$|__tests__|__snapshots__|(?:^|\/)(?:eslint|vitest|jest|playwright|cypress)(?:\.|$))/i;
+const CONFIG_FILE =
+  /(?:^|\/)(?:eslint|vitest|jest|playwright|cypress)(?:\.config)?\.[^.]+$/i;
 
 export interface DiscoveredCandidate {
   path: string;
@@ -85,7 +88,8 @@ export async function discoverRelatedFiles(
 
 function extractRelativeImports(content: string): string[] {
   const imports = new Set<string>();
-  const pattern = /(?:\b(?:import|export)\s+(?:type\s+)?[^\n;]*?\s+from\s*["']([^"']+)["']|\bimport\s*["']([^"']+)["']|\bimport\s*\(\s*["']([^"']+)["']\s*\)|\brequire\s*\(\s*["']([^"']+)["']\s*\))/g;
+  const pattern =
+    /(?:\b(?:import|export)\s+(?:type\s+)?[^\n;]*?\s+from\s*["']([^"']+)["']|\bimport\s*["']([^"']+)["']|\bimport\s*\(\s*["']([^"']+)["']\s*\)|\brequire\s*\(\s*["']([^"']+)["']\s*\))/g;
 
   for (const match of content.matchAll(pattern)) {
     const specifier = match[1] ?? match[2] ?? match[3] ?? match[4];
@@ -132,7 +136,10 @@ async function findA11yEvidence(
   const files: string[] = [];
   await walk(repoRoot, repoRoot, files);
   const changedNames = changedFiles.map((changedPath) =>
-    path.basename(changedPath).replace(/\.[^.]+$/, '').toLowerCase(),
+    path
+      .basename(changedPath)
+      .replace(/\.[^.]+$/, '')
+      .toLowerCase(),
   );
 
   const matches: string[] = [];
@@ -142,7 +149,10 @@ async function findA11yEvidence(
     }
 
     try {
-      const content = await fs.readFile(path.join(repoRoot, relativePath), 'utf8');
+      const content = await fs.readFile(
+        path.join(repoRoot, relativePath),
+        'utf8',
+      );
       const lowerPath = relativePath.toLowerCase();
       const lowerContent = content.toLowerCase();
       const isRelated = changedNames.some(
@@ -176,7 +186,11 @@ async function walk(
         await walk(repoRoot, path.join(directory, entry.name), files);
       }
     } else if (entry.isFile()) {
-      files.push(normalizePath(path.relative(repoRoot, path.join(directory, entry.name))));
+      files.push(
+        normalizePath(
+          path.relative(repoRoot, path.join(directory, entry.name)),
+        ),
+      );
     }
   }
 }
@@ -191,7 +205,11 @@ async function isFile(candidate: string): Promise<boolean> {
 
 function isInsideRepo(candidate: string, repoRoot: string): boolean {
   const relative = path.relative(repoRoot, candidate);
-  return relative !== '' && !relative.startsWith(`..${path.sep}`) && relative !== '..';
+  return (
+    relative !== '' &&
+    !relative.startsWith(`..${path.sep}`) &&
+    relative !== '..'
+  );
 }
 
 function normalizePath(filePath: string): string {

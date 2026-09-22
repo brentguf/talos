@@ -31,7 +31,9 @@ test('perception discovers and prioritizes related accessibility context', async
 
 test('perception retains P0 context first when the budget is constrained', async () => {
   const full = await perceive([changedFile], { repoRoot: fixtureRoot });
-  const changedTokens = full.context.find((file) => file.path === changedFile)?.tokens;
+  const changedTokens = full.context.find(
+    (file) => file.path === changedFile,
+  )?.tokens;
 
   assert.ok(changedTokens);
 
@@ -40,7 +42,10 @@ test('perception retains P0 context first when the budget is constrained', async
     budget: changedTokens,
   });
 
-  assert.deepEqual(context.map((file) => file.path), [changedFile]);
+  assert.deepEqual(
+    context.map((file) => file.path),
+    [changedFile],
+  );
   assert.equal(trace.filesDropped, 4);
 });
 
@@ -49,7 +54,10 @@ test('perception tolerates files deleted by the current change', async () => {
     repoRoot: fixtureRoot,
   });
 
-  assert.equal(context.some((file) => file.path === 'src/deleted.ts'), false);
+  assert.equal(
+    context.some((file) => file.path === 'src/deleted.ts'),
+    false,
+  );
   assert.equal(trace.filesDiscovered, context.length);
 });
 
